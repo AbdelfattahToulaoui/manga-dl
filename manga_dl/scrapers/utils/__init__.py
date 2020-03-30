@@ -18,6 +18,7 @@
 
 
 from bs4 import BeautifulSoup
+import re
 
 # Headers to be used when we want to disguise
 # the user agent
@@ -39,7 +40,7 @@ def bs_from_url(session, url, params=None):
     return BeautifulSoup(load_url(session, url, params), 'html.parser')
 
 def str_to_float(s):
-    if s.isdecimal():
+    if re.match('^[0-9\.]+$', s):
         return float(s)
     else:
         return 0

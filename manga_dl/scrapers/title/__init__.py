@@ -53,8 +53,8 @@ class Title(ABC):
         ch = self.getChapterList(lang=lang)
         try:
             return [ k for k in ch 
-                    if (k['number'].isdecimal() and
-                        begin <= float(k['number']) <= end)
+                    if (
+                        begin <= k['number'] <= end)
                     or (begin <= 0 and begin >= end) ]
         except KeyError:
             raise Exception('Invalid range')

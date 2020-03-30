@@ -53,10 +53,7 @@ class ManganeloTitle(Title):
             title = chapter.text
             link = chapter['href']
             m = re.search('Chapter ?([0-9\.]*)', title)
-            if m and m.group(1).isdecimal():
-                number = str_to_float(m.group(1))
-            else:
-                number = 0
+            number = str_to_float(m.group(1))
             ret.append({
                 'number': number,
                 'title': title,
