@@ -161,7 +161,7 @@ class Scraper:
                 print('Fetching all manga on the site, this may take a while...')
                 mangas = [i for i in sweeper.getMangaList()]
             else:
-                mangas = sweeper.searchManga(manga)
+                mangas = sweeper.searchManga(search)
             
             for index, manga in enumerate(mangas):
                 print("%02d: %s" % (index, manga['title']))
