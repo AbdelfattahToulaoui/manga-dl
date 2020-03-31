@@ -104,7 +104,7 @@ To list all chapters from the manga named 'black clover' available on mangafox:
 manga-dl c -s mangafox -m 'black clover'
 ```
 
-To download chapter 3, 4, and 10 of 'Komi-san' from manganelo as `.cbz`:
+To download chapters 3, 4, and 10 of 'Komi-san' from manganelo as `.cbz`:
 
 ```
 manga-dl d -s manganelo -m 'komi-san' -c 3 4 10 -z
@@ -119,7 +119,7 @@ manga-dl d -s mangadex -m 'komi-san' -l fr -r 1-10
 To download ALL chapters of 'one piece' from mangahub as `.cbz` files:
 
 ```
-manga-dl d -s mangadex -m 'one piece' -a
+manga-dl d -s mangadex -m 'one piece' -a -z
 ```
 
 ## License
