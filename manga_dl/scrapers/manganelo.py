@@ -49,6 +49,8 @@ class ManganeloTitle(Title):
         ret = []
         soup = BeautifulSoup(self._html, 'html.parser')
         container = soup.find('ul', class_='row-content-chapter')
+        if not container:
+            return []
         for chapter in container.findAll('a', class_='chapter-name'):
             title = chapter.text
             link = chapter['href']

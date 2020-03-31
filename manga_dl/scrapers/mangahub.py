@@ -105,7 +105,11 @@ class MangahubSweeper(Sweeper):
     
     def _searchPage(self, url):
         soup = bs_from_url(self.session, url)
-        mangas = soup.find('div', id='mangalist').findAll('div', class_='_1KYcM')
+        mangas = soup.find('div', id='mangalist')
+        if mangas:
+            mangas = mangas.findAll('div', class_='_1KYcM')
+        else:
+            return []
         for manga in mangas:
             img = manga.find('img', class_='manga-thumb')['src']
             a = manga.find('h4', 'media-heading').find('a')

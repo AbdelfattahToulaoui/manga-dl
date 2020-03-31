@@ -75,7 +75,11 @@ class MangafoxDownloader(Downloader):
         
         # Get all page links
         soup = BeautifulSoup(self._html, 'html.parser')
-        pager = soup.find('div', class_=pager_class).find('span')
+        pager = soup.find('div', class_=pager_class)
+        if pager:
+            pager = pager.find('span')
+        else:
+            return []
         # Get the page numbers in them
         pages = [int(a.text)
                  for a in pager.findAll("a") if a.text.isdigit()]
@@ -116,6 +120,8 @@ class MangafoxTitle(Title):
         ret = []
         soup = BeautifulSoup(self._html, 'html.parser')
         chapterlist = soup.find('div', id='chapterlist')
+        if not chapterlist:
+            return []
         for chapter in chapterlist.findAll('li'):
             a = chapter.find('a')
             link = 'https://fanfox.net' + a['href']
@@ -159,7 +165,11 @@ class MangafoxSweeper(Sweeper):
         # Since the search and global list pages
         # are similar with only different prefixes
         # for their classes, I grouped them together
-        mangas = soup.find('div', class_=prefix).findAll('li')
+        mangas = soup.find('div', class_=prefix)
+        if not mangas:
+            return []
+        else:
+            mangas = mangas.findAll('li')
         for manga in mangas:
             img = manga.find('img', class_=prefix + '-cover')['src']
             a = manga.find('p', prefix + '-item-title').find('a')
