@@ -90,13 +90,16 @@ class Scraper:
             print('No chapters found', file=sys.stderr)
             sys.exit(1)
         
-        #Check for missing chapters
+        # Check for missing chapters
         numbers = [ch['number'] for ch in chapters]
         missing = [ch for ch in chapter_list if ch not in numbers]
         if missing:
             print('Chapter(s) %s not found' % str.join(',', map(_float, missing))
                                                        , file=sys.stderr)
             sys.exit(1)
+        
+        # Sort the chapters before downloading
+        chapters.sort(key=lambda ch: ch['number'])
         
         for ch in chapters:
             downloader = self.downloader(ch['url'])
