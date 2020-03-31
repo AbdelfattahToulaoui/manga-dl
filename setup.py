@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # 
 # Copyright 2020 Abdelfattah Toulaoui
 # 
@@ -16,8 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Manga-DL.  If not, see <https://www.gnu.org/licenses/>. 
 
-
-#!/usr/bin/env python3
 
 from setuptools import setup, find_packages
 
