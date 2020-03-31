@@ -90,6 +90,7 @@ def main():
             elif args.chapter:
                 chapters = args.chapter
             else:
+                chapters = []
                 m, n = parse_range(args.range)
             
             scraper.downloadChapters(
