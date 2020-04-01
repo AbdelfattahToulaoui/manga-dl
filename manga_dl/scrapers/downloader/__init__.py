@@ -50,6 +50,9 @@ class Downloader(ABC):
             try:
                 content_type = req.headers['Content-Type'].split(';')[0]
                 ext = mimetypes.guess_extension(content_type)
+                # though technically the same, jpe is less popular that jpg
+                if ext=='.jpe':
+                    ext = '.jpg'
             except:
                 ext = ''
             
