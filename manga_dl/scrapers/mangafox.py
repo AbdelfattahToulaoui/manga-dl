@@ -24,7 +24,6 @@ from .utils import *
 import requests
 from bs4 import BeautifulSoup
 import re
-import execjs
 
 ''' A scraper for https://fanfox.net/ '''
 

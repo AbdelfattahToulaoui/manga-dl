@@ -7,13 +7,13 @@ A python tool to download manga from popular scanlation sites
 First, install the dependencies from requirements.txt, to do this make sure you have Python3 and pip installed and in your system path, then open a command prompt in the  and type:
 
 ```
-pip install bs4 pyexecjs requests
+pip install bs4 requests
 ```
 
 or:
 
 ```
-pip3 install bs4 pyexecjs requests
+pip3 install bs4 requests
 ```
 
 Now, get the code from the repo; to do this, either download and extract the `.zip` file from the github page, or clone the repo using the command:
