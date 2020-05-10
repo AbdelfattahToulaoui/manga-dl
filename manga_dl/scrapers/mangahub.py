@@ -67,7 +67,7 @@ class MangahubTitle(Title):
             link = ch['href']
             ret.append({
                 'number': number,
-                'title': title,
+                'title': ('%f' % f).rstrip('0').rstrip('.') + title,
                 'url' : link
             })
         return ret
