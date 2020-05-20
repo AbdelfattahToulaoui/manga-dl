@@ -116,7 +116,7 @@ class MangadexSweeper(Sweeper):
             if not m:
                 continue
             id = m.group(1)
-            title = re.search('^(.*?)( \(Title\) )?- MangaDex$', manga.text).group(1)
+            title = re.search('^(.*?)( \(Title\) )?(- MangaDex)?$', manga.text).group(1)
             link = 'https://mangadex.org/api/manga/' +  id
             img = 'https://mangadex.org/images/manga/%s.large.jpg' % id
             ret.append({
