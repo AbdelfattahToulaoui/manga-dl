@@ -19,6 +19,7 @@
 
 import requests
 import mimetypes
+import concurrent.futures
 import os
 from abc import ABC
 
@@ -38,26 +39,33 @@ class Downloader(ABC):
         '''
         raise NotImplementedError()
     
-    def download(self, directory):
+    def download(self, directory, ondone=None):
         ''' Download the images from the site
             to the specified directory
             
             :param directory: a directory to download pages to
         '''
-        for index, img in enumerate(self.images):
-            yield (index, len(self.images))
-            req = self.session.get(img)
-            try:
-                content_type = req.headers['Content-Type'].split(';')[0]
-                ext = mimetypes.guess_extension(content_type)
-                # though technically the same, jpe is less popular that jpg
-                if ext=='.jpe':
-                    ext = '.jpg'
-            except:
-                ext = ''
-            
-            path = os.path.join(directory, '%03i%s' % (index,ext))
-            
-            with open(path, 'wb') as output:
-                output.write(req.content)
-        yield (len(self.images), len(self.images)) 
+        self._downloaded = 0
+        def di(url, done):
+            self.download_img(url, directory, done)
+            self._downloaded += 1
+            if(ondone):
+                ondone(self._downloaded, len(self.images))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+            for i in range(len(self.images)):
+                executor.submit(di, self.images[i], i)
+
+
+    def download_img(self, url, directory, index):
+        req = self.session.get(url)
+        try:
+            content_type = req.headers['Content-Type'].split(';')[0]
+            ext = mimetypes.guess_extension(content_type)
+            # though technically the same, jpe is less popular that jpg
+            if ext=='.jpe':
+                ext = '.jpg'
+        except:
+            ext = ''
+        path = os.path.join(directory, '%03i%s' % (index,ext))
+        with open(path, 'wb') as output:
+            output.write(req.content)

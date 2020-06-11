@@ -126,17 +126,18 @@ class Scraper:
                 print('(%s)' % ch['lang'])
             print()
             # Create a temporary directory to store the images
-            # try:
-            # Finally download
-            for state in downloader.download(path):
-                print('Downloading %i/%i'%state, end='\r')
-            # except:
-            # In case of an error don't create a cbz, just copy the files
-            #    print()
-            #    print('Encountered an error', file=sys.stderr)
-            #    cbz = False
+            err = False
+            try:
+                # Finally download
+                fn = lambda c, t: print('Downloading %i/%i'%(c,t), end='\r')
+                downloader.download(path, fn)
+            except:
+                # In case of an error don't create a cbz, just copy the files
+                print()
+                print('Encountered an error', file=sys.stderr)
+                err = True
             print()
-            if cbz:
+            if cbz and not err:
                 print('Packing the CBZ file...')
                 # Remove any trailing slashes
                 zfile = re.sub('(\\|/)*$', '', path)
