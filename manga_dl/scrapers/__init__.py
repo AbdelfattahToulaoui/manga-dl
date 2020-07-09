@@ -112,12 +112,13 @@ class Scraper:
             # but I use it to confirm that the path is writeable
             # and that it's not against the rules of the OS
             try:
-                os.makedirs(path)
+                os.makedirs(path, exist_ok=True)
             except:
                 # Try escaping the path, if it still doesn't work
                 # throw and error
                 try:
                     path = re.sub('\<|\>|\:|\"|\||\?\*', '_', path)
+                    print(path)
                 except:
                     raise Exception('Cannot create directory ' + path)
             print('Downloading chapter: %s' % _float(ch['number']), end='')
@@ -125,15 +126,15 @@ class Scraper:
                 print('(%s)' % ch['lang'])
             print()
             # Create a temporary directory to store the images
-            try:
-                # Finally download
-                for state in downloader.download(path):
-                    print('Downloading %i/%i'%state, end='\r')
-            except:
-                # In case of an error don't create a cbz, just copy the files
-                print()
-                print('Encountered an error', file=sys.stderr)
-                cbz = False
+            # try:
+            # Finally download
+            for state in downloader.download(path):
+                print('Downloading %i/%i'%state, end='\r')
+            # except:
+            # In case of an error don't create a cbz, just copy the files
+            #    print()
+            #    print('Encountered an error', file=sys.stderr)
+            #    cbz = False
             print()
             if cbz:
                 print('Packing the CBZ file...')
